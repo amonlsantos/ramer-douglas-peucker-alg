@@ -6,14 +6,14 @@ import {IDistrictData} from "../models/DistrictDataInterface.ts";
 
 export function getDistrict(districtKey: string, resolution: number): IDistrictData | IDistrictData[] {
     if (!districtKey || districtKey === "ALL_DISTRICTS") {
-        return DistrictsData.map(d => buildDistrict4Map(d.key, resolution))
+        return DistrictsData.map(d => buildDistrictForMap(d.key, resolution))
     }
 
-    return buildDistrict4Map(districtKey, resolution);
+    return buildDistrictForMap(districtKey, resolution);
 }
 
 
-function buildDistrict4Map(districtKey: string, resolution: number): IDistrictData {
+function buildDistrictForMap(districtKey: string, resolution: number): IDistrictData {
     const districtRawInfos: IDistrict | undefined = DistrictsData.find(d => d.key === districtKey).districtInfos;
     const districtData: IDistrictData = {
         ...districtRawInfos,

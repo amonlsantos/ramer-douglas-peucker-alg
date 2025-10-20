@@ -1,66 +1,79 @@
-import React, {useState} from "react";
-
-import {DistrictOptions} from "../data/DistrictOptions.ts";
-import {getDistrict} from "../services/getDistrict.ts";
-import {useMapUpdate} from "../providers/MapProvider.tsx";
+import React, { useState } from "react";
+import { DistrictOptions } from "../data/DistrictOptions.ts";
+import { getDistrict } from "../services/getDistrict.ts";
+import { useMapUpdate } from "../providers/MapProvider.tsx";
 
 const FilterComponent: React.FC = () => {
-    const [formValues, setFormValues] = useState({
-        district: DistrictOptions.length > 0 ? DistrictOptions[0].key : "",
-        resolution: 0,
-    });
+  const [formValues, setFormValues] = useState({
+    district: DistrictOptions.length > 0 ? DistrictOptions[0].key : "",
+    resolution: 0,
+  });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const {name, value} = e.target;
-        console.log(value);
-        setFormValues((prev) => ({
-            ...prev,
-            [name]: name === "resolution" ? Number(value) : value,
-        }));
-    };
+  const [expanded, setExpanded] = useState(true); // estado de expansão
 
-    const {updateMap}= useMapUpdate();
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormValues((prev) => ({
+      ...prev,
+      [name]: name === "resolution" ? Number(value) : value,
+    }));
+  };
 
-    const handleFilter = (event: React.FormEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-        console.log("Form Values:", formValues);
+  const { updateMap } = useMapUpdate();
 
-        const districts2Render = getDistrict(formValues.district, formValues.resolution)
-        console.log(districts2Render);
-        updateMap(districts2Render);
-    };
-
-    return (
-        <div className="container">
-            <form>
-                <div className="row">
-                    <label>District</label>
-                    <select className="u-full-width" id="exampleRecipientInput" name="district" onChange={handleChange}
-                            value={formValues.district}>
-                        {
-                            DistrictOptions.map((option) => (
-                                <option key={option.key} value={option.key}>
-                                    {option.value}
-                                </option>
-                            ))}
-                    </select>
-                </div>
-                <div>
-                    <label className="label">Algorithm tolerance</label>
-                    <div className="row">
-                        <input type="number" name="resolution" value={formValues.resolution} onChange={handleChange}
-                               className="input" step="0.0001"/>
-                    </div>
-                </div>
-                <div className="row">
-                    <button onClick={handleFilter} className="button-primary" type="button">
-                        Apply Filter
-                    </button>
-                </div>
-            </form>
-        </div>
+  const handleFilter = (event: React.FormEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const districtsToRender = getDistrict(
+      formValues.district,
+      formValues.resolution
     );
+    updateMap(districtsToRender);
+  };
+
+  return (
+      <details className="dropdown filter-card">
+        <summary>Filter</summary>
+        <form className="card row">
+          <div className="">
+            <label className="mb-1">District</label>
+            <select
+            className="col-12"
+              name="district"
+              onChange={handleChange}
+              value={formValues.district}
+            >
+              {DistrictOptions.map((option) => (
+                <option key={option.key} value={option.key}>
+                  {option.value}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="">
+            <label className="mb-1">Algorithm tolerance</label>
+            <input
+              type="number"
+              name="resolution"
+              value={formValues.resolution}
+              onChange={handleChange}
+              className="col-6"
+              step="0.00001"
+            />
+          </div>
+
+          <button
+            onClick={handleFilter}
+            className="button primary mt-1"
+            type="button"
+          >
+            Apply Filter
+          </button>
+        </form>
+      </details>
+  );
 };
 
 export default FilterComponent;
-
