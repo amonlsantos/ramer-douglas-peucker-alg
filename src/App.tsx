@@ -35,7 +35,7 @@ function App() {
 
       <div className="container">
         <div className="row">
-          <div className="col-12-lg sm:col-12">
+          <div className="col-12">
             <div className="map-wrapper">
               <div className="filter-panel card">
                 <FilterComponent />

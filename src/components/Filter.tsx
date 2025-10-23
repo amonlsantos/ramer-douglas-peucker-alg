@@ -37,7 +37,7 @@ const FilterComponent: React.FC = () => {
         <summary>Filter</summary>
         <form className="card row">
           <div className="">
-            <label className="mb-1">District</label>
+            <label className="mb">District</label>
             <select
             className="col-12"
               name="district"
@@ -53,7 +53,7 @@ const FilterComponent: React.FC = () => {
           </div>
 
           <div className="">
-            <label className="mb-1">Algorithm tolerance</label>
+            <label className="mb">Algorithm tolerance</label>
             <input
               type="number"
               name="resolution"

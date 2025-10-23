@@ -16,7 +16,7 @@ dados geográficos.
 
 1. Clone este repositório:
    ```bash
-   git clone https://github.com/amonsantos73/ramer-douglas-peucker-alg.git
+   git clone https://github.com/amonlsantos/ramer-douglas-peucker-alg.git
    ```
 2. Acesse a pasta do projeto:
    ```bash

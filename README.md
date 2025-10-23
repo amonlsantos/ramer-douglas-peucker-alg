@@ -15,7 +15,7 @@ This project implements the **Ramer-Douglas-Peucker** algorithm to simplify poly
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/amonsantos73/ramer-douglas-peucker-alg.git
+   git clone https://github.com/amonlsantos/ramer-douglas-peucker-alg.git
    ```
 2. Navigate to the project folder:
    ```bash
